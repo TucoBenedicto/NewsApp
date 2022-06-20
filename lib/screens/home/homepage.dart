@@ -144,7 +144,12 @@ class _HomePageState extends State<HomePage>
   ScrollController _scrollController;
   TabController _tabController;
   int currentIndex = 0;
-  Map<String, List> _newsData = Map<String, List>();
+
+  //on creer une map vide pour la variable "_newsdata" , 3 methodes possibles
+  //Map<String, List> _newsData = Map<String, List>();
+  Map<String, List> _newsData = <String, List>{};
+  //Map<String, List> _newsData ;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -160,7 +165,7 @@ class _HomePageState extends State<HomePage>
   _smoothScrollToTop() {
     _scrollController.animateTo(
       0,
-      duration: Duration(microseconds: 300),
+      duration: const Duration(microseconds: 300),
       curve: Curves.ease,
     );
   }
@@ -233,9 +238,14 @@ class _HomePageState extends State<HomePage>
             children: List.generate(
               categories.length,
                   (index) {
+                /*
+                on récupere l'argument "imageUrl" dans la variable "categories" dans l'objet "CategoryModel" ,on lui ajoute un index.
+                "split("/")" permet de separer l'argument "imageUrl" en string distinct là ou il y les "slash" on recupere la valeur de l'index 3 "[3]".
+                "split(".")" a partir de l'index 3 on separe la valeur là ou il y a des point et recuper le key à l'index 0 "[0]".
+                "replaceAll("_", "-")" permet de remplacer tous les underScores par des tirets.
+                 */
                 var key = categories[index].imageUrl.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
-
-                developer.log('key : $key'); //la variable value recupere tout le flux RSS
+                developer.log('key : $key'); //return topnews , india , world  , business , sports , cricket , education , entertainment , lifestyle , ....
 
                 return ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 25),

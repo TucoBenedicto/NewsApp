@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:ten_news/model/categories_model.dart';
 import 'package:ten_news/reusable/custom_cards.dart';
@@ -144,7 +146,23 @@ class _HomePageState extends State<HomePage>
   ScrollController _scrollController;
   TabController _tabController;
   int currentIndex = 0;
-  Map<String, List> _newsData = Map<String, List>();
+
+  /* Collection literal
+   https://dart.dev/tools/linter-rules#prefer_collection_literals
+   on creer une map vide pour la variable "_newsdata" on parle de "collection literal"  , 2 methodes possibles .
+   Map<String, List> newsData = Map<String, List>(); //mauvaise maniere
+   ou var newsData = Map<String, List>(); //Bonne maniere
+   */
+  Map<String, List> _newsData = <String, List>{}; //Bonne maniere
+/*
+A collection literal is a syntactic expression form that evaluates to an
+aggregate type, such as an array, List, or Map. Many languages support
+collection literals. A List literal in Java might look like:
+List<Integer> list = #[ 1, 2, 3 ];
+https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20languages%20support%20collection%20literals.
+ */
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -160,7 +178,7 @@ class _HomePageState extends State<HomePage>
   _smoothScrollToTop() {
     _scrollController.animateTo(
       0,
-      duration: Duration(microseconds: 300),
+      duration: const Duration(microseconds: 300),
       curve: Curves.ease,
     );
   }
@@ -203,22 +221,22 @@ class _HomePageState extends State<HomePage>
           ),
           SliverToBoxAdapter(
             child: Container(
-              padding: EdgeInsets.only(left: 25),
+              padding: const EdgeInsets.only(left: 25),
               alignment: Alignment.centerLeft,
               child: TabBar(
-                  labelPadding: EdgeInsets.only(right: 15),
+                  labelPadding: const EdgeInsets.only(right: 15),
                   indicatorSize: TabBarIndicatorSize.label,
                   controller: _tabController,
                   isScrollable: true,
-                  indicator: UnderlineTabIndicator(),
+                  indicator: const UnderlineTabIndicator(),
                   labelColor: Colors.black,
                   labelStyle: const TextStyle(
-                      fontFamily: "Avenir",
+                      fontFamily: "Avenger",
                       fontSize: 19,
                       fontWeight: FontWeight.bold),
                   unselectedLabelColor: Colors.black45,
                   unselectedLabelStyle: const TextStyle(
-                      fontFamily: "Avenir",
+                      fontFamily: "Avenger",
                       fontSize: 18,
                       fontWeight: FontWeight.normal),
                   tabs: List.generate(categories.length,
@@ -233,22 +251,38 @@ class _HomePageState extends State<HomePage>
             children: List.generate(
               categories.length,
                   (index) {
+                /*
+                on récupere l'argument "imageUrl" dans la variable "categories" dans l'objet "CategoryModel" ,on lui ajoute un index.
+                "split("/")" permet de separer l'argument "imageUrl" en string distinct là ou il y les "slash" on recupere la valeur de l'index 3 "[3]".
+                "split(".")" a partir de l'index 3 on separe la valeur là ou il y a des point et recuper le key à l'index 0 "[0]".
+                "replaceAll("_", "-")" permet de remplacer tous les underScores par des tirets.
+                 */
                 var key = categories[index].imageUrl.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
-
-                developer.log('key : $key'); //la variable value recupere tout le flux RSS
+                developer.log('key : $key'); //return topnews , india , world  , business , sports , cricket , education , entertainment , lifestyle , ....
 
                 return ListView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                   itemBuilder: (context, i) {
-                    String time = _newsData[key][i]['pubDate']['__cdata'];
-                    //print('ffgfgfgfgfgffgg   {$time}');
+
+                    //Gestion de l'heure des articles.
+                    //Tuto parsin time : https://stackoverflow.com/questions/62949069/how-to-parse-date-time-in-flutter
+                    //Tuto parsin time : https://www.woolha.com/tutorials/dart-convert-string-to-datetime
+                    String time = _newsData[key][i]['pubDate']['__cdata']; //On recupere l'heure du flux rss
                     //DateTime timeIST = DateTime.parse(time);
+                    DateTime timeIST = DateTime.parse('2020-07-17T03:18:31.177769-04:00'); //OK
+                    // Sat, 18 Jun 2022 16:30:08 +0530
+                    //DateTime timeIST = DateTime.parse('Sat-18-Jun-2022 16:30:08+0530');
+                    //DateTime timeIST = HttpDate.parse('Sat, 18 Jun 2022 16:30:08 +0530');
+                    //print(HttpDate.parse("Wed, 28 Oct 2020 01:02:03 GMT")); //OK
+                    print(HttpDate.parse("Sat, 18 Jun 2022 16:30:08 GMT"));
                     //timeIST = timeIST.add(Duration(hours: 5)).add(Duration(minutes: 30));
+
+
                     return HomePageCard(
                       title: _newsData[key][i]['title']['__cdata'].replaceAll(r"\'",''),
                       subtitle: _newsData[key][i]['description']['__cdata'],
-                      //time: timeIST.day.toString() + " " + getMonthNumberInWords(month: timeIST.month) + " " + timeIST.toString().split(" ")[1].substring(0, 5),
-                      time : time,
+                      time: timeIST.day.toString() + " " + getMonthNumberInWords(month: timeIST.month) + " " + timeIST.toString().split(" ")[1].substring(0, 5),
+                      //time : time,
                       imageUrl: _newsData[key][i]['media\$content']['url'],
                     );
                   },

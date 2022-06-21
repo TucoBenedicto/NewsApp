@@ -1,3 +1,4 @@
+//Model
 class CategoryModel{
   final name,imageUrl;
 

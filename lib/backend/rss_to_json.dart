@@ -14,8 +14,8 @@ Future<List> rssToJson(String category, {String baseUrl = 'https://www.hindustan
   var json = myTranformer.toGData();
   var result = jsonDecode(json)['rss']['channel']['item'];
   /*
-  is	True if the object has the specified type
-  is!	True if the object doesn’t have the specified type
+  "is"	True if the object has the specified type
+  "is!"	True if the object doesn’t have the specified type
    */
   // if (!(result is List<dynamic>)) {
   if (result is! List<dynamic>) {

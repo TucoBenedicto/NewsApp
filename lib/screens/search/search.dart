@@ -33,12 +33,12 @@ class _SearchState extends State<Search> {
                 )
               ]),
           padding: EdgeInsets.fromLTRB(
-              25, 0, _searchController.text.isNotEmpty ? 10 : 25, 0),
+              25, 0, _searchController.text.isNotEmpty ? 10 : 25, 0), // "?" ":"  ternaire operator (condition)
           child: Row(
             children: <Widget>[
               Expanded(
                   child: Center(
-                child: TextFormField(
+                    child: TextFormField(
                   controller: _searchController,
                   focusNode: searchNode,
                   decoration: const InputDecoration(

@@ -245,52 +245,48 @@ https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20la
           ),
         ];
       },
-      body: Container(
-        child: TabBarView(
-            controller: _tabController,
-            children: List.generate(
-              categories.length,
-                  (index) {
-                /*
-                on récupere l'argument "imageUrl" dans la variable "categories" dans l'objet "CategoryModel" ,on lui ajoute un index.
-                "split("/")" permet de separer l'argument "imageUrl" en string distinct là ou il y les "slash" on recupere la valeur de l'index 3 "[3]".
-                "split(".")" a partir de l'index 3 on separe la valeur là ou il y a des point et recuper le key à l'index 0 "[0]".
-                "replaceAll("_", "-")" permet de remplacer tous les underScores par des tirets.
-                 */
-                var key = categories[index].imageUrl.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
-                developer.log('key : $key'); //return topnews , india , world  , business , sports , cricket , education , entertainment , lifestyle , ....
+      body: TabBarView(
+          controller: _tabController,
+          children: List.generate(
+            categories.length,
+                (index) {
+              /*
+              on récupere l'argument "imageUrl" dans la variable "categories" dans l'objet "CategoryModel" ,on lui ajoute un index.
+              "split("/")" permet de separer l'argument "imageUrl" en string distinct là ou il y les "slash" on recupere la valeur de l'index 3 "[3]".
+              "split(".")" a partir de l'index 3 on separe la valeur là ou il y a des point et recuper le key à l'index 0 "[0]".
+              "replaceAll("_", "-")" permet de remplacer tous les underScores par des tirets.
+               */
+              var key = categories[index].imageUrl.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
+              developer.log('key : $key'); //return topnews , india , world  , business , sports , cricket , education , entertainment , lifestyle , ....
 
-                return ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  itemBuilder: (context, i) {
+              return ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                itemBuilder: (context, i) {
 
-                    //Gestion de l'heure des articles.
-                    //Tuto parsin time : https://stackoverflow.com/questions/62949069/how-to-parse-date-time-in-flutter
-                    //Tuto parsin time : https://www.woolha.com/tutorials/dart-convert-string-to-datetime
-                    String time = _newsData[key][i]['pubDate']['__cdata']; //On recupere l'heure du flux rss
-                    //DateTime timeIST = DateTime.parse(time);
-                    DateTime timeIST = DateTime.parse('2020-07-17T03:18:31.177769-04:00'); //OK
-                    // Sat, 18 Jun 2022 16:30:08 +0530
-                    //DateTime timeIST = DateTime.parse('Sat-18-Jun-2022 16:30:08+0530');
-                    //DateTime timeIST = HttpDate.parse('Sat, 18 Jun 2022 16:30:08 +0530');
-                    //print(HttpDate.parse("Wed, 28 Oct 2020 01:02:03 GMT")); //OK
-                    print(HttpDate.parse("Sat, 18 Jun 2022 16:30:08 GMT"));
-                    //timeIST = timeIST.add(Duration(hours: 5)).add(Duration(minutes: 30));
+                  //Gestion de l'heure des articles.
+                  //Tuto parsin time : https://stackoverflow.com/questions/62949069/how-to-parse-date-time-in-flutter
+                  //Tuto parsin time : https://www.woolha.com/tutorials/dart-convert-string-to-datetime
+                  String time = _newsData[key][i]['pubDate']['__cdata']; //On recupere l'heure du flux rss
+                  String timeGMT = time.replaceAll("+0530", "GMT"); //pubDate me renvoi une erreur "+530" on la remplace par "GMT" pour corriger l'erreur
+                  DateTime timeIST = HttpDate.parse(timeGMT);
+                  //Sat, 18 Jun 2022 16:30:08 +0530 -> pubdata dans le flux RSS
+                  //DateTime timeIST = HttpDate.parse('Sat, 18 Jun 2022 16:30:08 +0530'); -> erreur a cause de "+0530"
+                  //String timeGMT = timeIST.replaceAll("+0530", "GMT");
+                  //print(HttpDate.parse(timeGMT)); //OK
+                  //String value2 = value.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
+                  timeIST = timeIST.add(const Duration(hours: 5)).add(const Duration(minutes: 30)); // permet de corriger l'heure, on change le fuseau horaire indien "ist" en fuseau horaire europpen "gmt"
 
-
-                    return HomePageCard(
-                      title: _newsData[key][i]['title']['__cdata'].replaceAll(r"\'",''),
-                      subtitle: _newsData[key][i]['description']['__cdata'],
-                      time: timeIST.day.toString() + " " + getMonthNumberInWords(month: timeIST.month) + " " + timeIST.toString().split(" ")[1].substring(0, 5),
-                      //time : time,
-                      imageUrl: _newsData[key][i]['media\$content']['url'],
-                    );
-                  },
-                  itemCount: _newsData[key]?.length ?? 0,
-                );
-              },
-            )),
-      ),
+                  return HomePageCard(
+                    title: _newsData[key][i]['title']['__cdata'].replaceAll(r"\'",''),
+                    subtitle: _newsData[key][i]['description']['__cdata'],
+                    time: timeIST.day.toString() + " " + getMonthNumberInWords(month: timeIST.month) + " " + timeIST.toString().split(" ")[1].substring(0, 5),
+                    imageUrl: _newsData[key][i]['media\$content']['url'],
+                  );
+                },
+                itemCount: _newsData[key]?.length ?? 0, // "?." : Called also null-aware access(method invocation) / "??" : Called also null operator.
+              );
+            },
+          )),
     );
   }
 }

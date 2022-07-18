@@ -40,9 +40,9 @@ class _HomeState extends State<Home> {
   bool isLoading = true; //CEtte variable va nous permettre de gerer la barre de chargement plus bas.
   getData() async {
     Future.wait([
-      rssToJson('topnews'),
-      rssToJson('india'),
-      rssToJson('world-news'),
+      rssToJson('figaro_actualites'),
+     rssToJson('figaro_politique'),
+/*      rssToJson('world-news'),
       rssToJson('business'),
       rssToJson('sports'),
       rssToJson('cricket'),
@@ -51,17 +51,17 @@ class _HomeState extends State<Home> {
       rssToJson('lifestyle'),
       rssToJson('health'),
       rssToJson('books'),
-      rssToJson('trending'),
+      rssToJson('trending'),*/
     ]).then((value) {
-      developer.log('value : ${value}'); //la variable value recupere tout le flux RSS
-      developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
+      //developer.log('value : ${value}'); //la variable value recupere tout le flux RSS
+      //developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
 
       value[0] = []; //tableau vide
 
       /*
       on creer une boucle "foreach" dans laquel on recupere toutes les topnews que l'on va ajouter a un tableau avec l'index 0 (topnews)
        */
-      value.forEach((element) { //on peut remplacer parune boucle for
+      value.forEach((element) { //on peut remplacer par une boucle for
         /*
           les varargs (Arguments de longueur variable) "..." permettent de traiter un nombre illimité de paramettre au lieu de tous les taper a chaque fois au lieu de : (para1,para2para3 ...)
           dans notre cas on ajoute tous les arguments element "...element"
@@ -75,9 +75,9 @@ class _HomeState extends State<Home> {
         //print('newsData : $newsData');
       });
       value[0].shuffle(); //shuffle : on melange les info dans newsdata pour donner l'illusion que c'est des nouvelle news a chaque fois
-      newsData['topnews'] = value[0].sublist(0, 10); //retourne la sous liste comprise entre 0 et 10 -> n'affiche donc que les 10er articles
-      newsData['india'] = value[1];
-      newsData['world'] = value[2];
+      newsData['figaro_actualites'] = value[0].sublist(0, 10); //retourne la sous liste comprise entre 0 et 10 -> n'affiche donc que les 10er articles
+      newsData['figaro_politique'] = value[1];
+/*      newsData['world'] = value[2];
       newsData['business'] = value[3];
       newsData['sports'] = value[4];
       newsData['cricket'] = value[5];
@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
       newsData['lifestyle'] = value[8];
       newsData['health-fitness'] = value[9];
       newsData['books'] = value[10];
-      newsData['its-viral'] = value[11];
+      newsData['its-viral'] = value[11];*/
       //developer.log('newsData : $newsData');
       //developer.log('newsData topnews: ${newsData['world']}');
 

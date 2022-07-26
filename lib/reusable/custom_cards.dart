@@ -1,17 +1,28 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePageCard extends StatelessWidget {
-  final imageUrl, title, subtitle, time;
+  final title
+      //imageUrl
+      //subtitle,
+    //  time
+  ;
 
   const HomePageCard(
       {Key key,
+<<<<<<< HEAD
       this.imageUrl = "assets/images/cardimage.jpg",
       this.title = "Watch : Gameplay for the first 13 games optimised for Xbox Series X",
       this.time = "07 May 07:19",
       this.subtitle = "Microsoft showcased 13 games, with their gameplay trailers, that will come to Xbox Series X with optimisations"})
+=======
+      //this.imageUrl = "assets/images/cardimage.jpg",
+      this.title,
+      //this.time = "07 May 07:19",
+      //this.subtitle = "Microsoft showcased 13 games, with their gameplay trailers, that will come to Xbox Series X with optimisations"
+      })
+>>>>>>> 4b6ab05e90cf2f1d48fb2c19db68dec86002d03b
       : super(key: key);
 
   @override
@@ -30,8 +41,7 @@ class HomePageCard extends StatelessWidget {
                   color: const Color(0xff707070),
                   width: 1,
                 ),
-                image: DecorationImage(
-                    image: NetworkImage(imageUrl), fit: BoxFit.fill),
+                //image: DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.fill),
               ),
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -64,9 +74,12 @@ class HomePageCard extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
+          /*
           Text(time,
               style: const TextStyle(
-                  fontFamily: "Times", fontSize: 13, color: Color(0xff8a8989))),
+                  fontFamily: "Times", fontSize: 13, color: Color(0xff8a8989))
+          ),
+           */
           const SizedBox(
             height: 7,
           ),

@@ -40,15 +40,9 @@ class _HomeState extends State<Home> {
   bool isLoading = true; //CEtte variable va nous permettre de gerer la barre de chargement plus bas.
   getData() async {
     Future.wait([
-<<<<<<< HEAD
       rssToJson('une'),
 /*      rssToJson('india'),
       rssToJson('world-news'),
-=======
-      rssToJson('figaro_actualites'),
-     rssToJson('figaro_politique'),
-/*      rssToJson('world-news'),
->>>>>>> 4b6ab05e90cf2f1d48fb2c19db68dec86002d03b
       rssToJson('business'),
       rssToJson('sports'),
       rssToJson('cricket'),
@@ -59,26 +53,15 @@ class _HomeState extends State<Home> {
       rssToJson('books'),
       rssToJson('trending'),*/
     ]).then((value) {
-<<<<<<< HEAD
       developer.log('value : ${value}'); //la variable value recupere tout le flux RSS
       //developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
 
       //value[0] = []; //tableau vide
-=======
-      //developer.log('value : ${value}'); //la variable value recupere tout le flux RSS
-      //developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
-
-      value[0] = []; //tableau vide
->>>>>>> 4b6ab05e90cf2f1d48fb2c19db68dec86002d03b
 
       /*
       on creer une boucle "foreach" dans laquel on recupere toutes les topnews que l'on va ajouter a un tableau avec l'index 0 (topnews)
        */
-<<<<<<< HEAD
       value.forEach((element) { //on peut remplacer parune boucle for
-=======
-      value.forEach((element) { //on peut remplacer par une boucle for
->>>>>>> 4b6ab05e90cf2f1d48fb2c19db68dec86002d03b
         /*
           les varargs (Arguments de longueur variable) "..." permettent de traiter un nombre illimité de paramettre au lieu de tous les taper a chaque fois au lieu de : (para1,para2para3 ...)
           dans notre cas on ajoute tous les arguments element "...element"
@@ -90,7 +73,6 @@ class _HomeState extends State<Home> {
          */
         value[0].addAll([...element ?? []]);
         //print('newsData : $newsData');
-<<<<<<< HEAD
         //developer.log('value : ${value.runtimeType}');
         //developer.log('value : ${element}');
       });
@@ -99,13 +81,6 @@ class _HomeState extends State<Home> {
       newsData['une'] = value[0];
      /* newsData['india'] = value[1];
       newsData['world'] = value[2];
-=======
-      });
-      value[0].shuffle(); //shuffle : on melange les info dans newsdata pour donner l'illusion que c'est des nouvelle news a chaque fois
-      newsData['figaro_actualites'] = value[0].sublist(0, 10); //retourne la sous liste comprise entre 0 et 10 -> n'affiche donc que les 10er articles
-      newsData['figaro_politique'] = value[1];
-/*      newsData['world'] = value[2];
->>>>>>> 4b6ab05e90cf2f1d48fb2c19db68dec86002d03b
       newsData['business'] = value[3];
       newsData['sports'] = value[4];
       newsData['cricket'] = value[5];
@@ -115,12 +90,8 @@ class _HomeState extends State<Home> {
       newsData['health-fitness'] = value[9];
       newsData['books'] = value[10];
       newsData['its-viral'] = value[11];*/
-<<<<<<< HEAD
       //developer.log('newsData : ${newsData}');
       //developer.log('newsData : ${value}');
-=======
-      //developer.log('newsData : $newsData');
->>>>>>> 4b6ab05e90cf2f1d48fb2c19db68dec86002d03b
       //developer.log('newsData topnews: ${newsData['world']}');
 
       setState(() {

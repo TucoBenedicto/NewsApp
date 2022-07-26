@@ -33,11 +33,7 @@ class _SearchState extends State<Search> {
                 )
               ]),
           padding: EdgeInsets.fromLTRB(
-<<<<<<< HEAD
               25, 0, _searchController.text.isNotEmpty ? 10 : 25, 0), // "?" ":"  ternaire operator (condition)
-=======
-              25, 0, _searchController.text.isNotEmpty ? 10 : 25, 0),
->>>>>>> 4b6ab05e90cf2f1d48fb2c19db68dec86002d03b
           child: Row(
             children: <Widget>[
               Expanded(

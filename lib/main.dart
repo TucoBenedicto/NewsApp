@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
-
+// adb connect localhost:5555
 void main() {
   runApp( MyApp());
 }

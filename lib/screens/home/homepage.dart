@@ -258,29 +258,33 @@ https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20la
                */
               var key = categories[index].imageUrl.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
               developer.log('key : $key'); //return topnews , india , world  , business , sports , cricket , education , entertainment , lifestyle , ....
+              //developer.log('newsdat : ${_newsData[key]}');
 
               return ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 itemBuilder: (context, i) {
-
+                 // developer.log('${_newsData[key][i]['media\$content']['url']}');
                   //Gestion de l'heure des articles.
                   //Tuto parsin time : https://stackoverflow.com/questions/62949069/how-to-parse-date-time-in-flutter
                   //Tuto parsin time : https://www.woolha.com/tutorials/dart-convert-string-to-datetime
-                  String time = _newsData[key][i]['pubDate']['__cdata']; //On recupere l'heure du flux rss
-                  String timeGMT = time.replaceAll("+0530", "GMT"); //pubDate me renvoi une erreur "+530" on la remplace par "GMT" pour corriger l'erreur
-                  DateTime timeIST = HttpDate.parse(timeGMT);
+
+                  //String time = _newsData[key][i]['pubDate']['__cdata']; //On recupere l'heure du flux rss
+                  //String timeGMT = time.replaceAll("+0530", "GMT"); //pubDate me renvoi une erreur "+530" on la remplace par "GMT" pour corriger l'erreur
+                  //DateTime timeIST = HttpDate.parse(timeGMT);
+
                   //Sat, 18 Jun 2022 16:30:08 +0530 -> pubdata dans le flux RSS
                   //DateTime timeIST = HttpDate.parse('Sat, 18 Jun 2022 16:30:08 +0530'); -> erreur a cause de "+0530"
                   //String timeGMT = timeIST.replaceAll("+0530", "GMT");
                   //print(HttpDate.parse(timeGMT)); //OK
                   //String value2 = value.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
-                  timeIST = timeIST.add(const Duration(hours: 5)).add(const Duration(minutes: 30)); // permet de corriger l'heure, on change le fuseau horaire indien "ist" en fuseau horaire europpen "gmt"
+
+                  //timeIST = timeIST.add(const Duration(hours: 5)).add(const Duration(minutes: 30)); // permet de corriger l'heure, on change le fuseau horaire indien "ist" en fuseau horaire europpen "gmt"
 
                   return HomePageCard(
-                    title: _newsData[key][i]['title']['__cdata'].replaceAll(r"\'",''),
-                    subtitle: _newsData[key][i]['description']['__cdata'],
-                    time: timeIST.day.toString() + " " + getMonthNumberInWords(month: timeIST.month) + " " + timeIST.toString().split(" ")[1].substring(0, 5),
-                    imageUrl: _newsData[key][i]['media\$content']['url'],
+                    title: _newsData[key][i]['title']['__cdata'],
+                    //subtitle: _newsData[key][i]['description']['__cdata'],
+                    //time: timeIST.day.toString() + " " + getMonthNumberInWords(month: timeIST.month) + " " + timeIST.toString().split(" ")[1].substring(0, 5),
+                    imageUrl: _newsData[key][i]['media\$content']['url'] ,
                   );
                 },
                 itemCount: _newsData[key]?.length ?? 0, // "?." : Called also null-aware access(method invocation) / "??" : Called also null operator.

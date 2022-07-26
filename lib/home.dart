@@ -40,8 +40,8 @@ class _HomeState extends State<Home> {
   bool isLoading = true; //CEtte variable va nous permettre de gerer la barre de chargement plus bas.
   getData() async {
     Future.wait([
-      rssToJson('topnews'),
-      rssToJson('india'),
+      rssToJson('une'),
+/*      rssToJson('india'),
       rssToJson('world-news'),
       rssToJson('business'),
       rssToJson('sports'),
@@ -51,12 +51,12 @@ class _HomeState extends State<Home> {
       rssToJson('lifestyle'),
       rssToJson('health'),
       rssToJson('books'),
-      rssToJson('trending'),
+      rssToJson('trending'),*/
     ]).then((value) {
       developer.log('value : ${value}'); //la variable value recupere tout le flux RSS
-      developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
+      //developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
 
-      value[0] = []; //tableau vide
+      //value[0] = []; //tableau vide
 
       /*
       on creer une boucle "foreach" dans laquel on recupere toutes les topnews que l'on va ajouter a un tableau avec l'index 0 (topnews)
@@ -73,10 +73,13 @@ class _HomeState extends State<Home> {
          */
         value[0].addAll([...element ?? []]);
         //print('newsData : $newsData');
+        //developer.log('value : ${value.runtimeType}');
+        //developer.log('value : ${element}');
       });
-      value[0].shuffle(); //shuffle : on melange les info dans newsdata pour donner l'illusion que c'est des nouvelle news a chaque fois
-      newsData['topnews'] = value[0].sublist(0, 10); //retourne la sous liste comprise entre 0 et 10 -> n'affiche donc que les 10er articles
-      newsData['india'] = value[1];
+      //value[0].shuffle(); //shuffle : on melange les info dans newsdata pour donner l'illusion que c'est des nouvelle news a chaque fois
+      //newsData['une'] = value[0].sublist(0, 10); //retourne la sous liste comprise entre 0 et 10 -> n'affiche donc que les 10er articles
+      newsData['une'] = value[0];
+     /* newsData['india'] = value[1];
       newsData['world'] = value[2];
       newsData['business'] = value[3];
       newsData['sports'] = value[4];
@@ -86,8 +89,9 @@ class _HomeState extends State<Home> {
       newsData['lifestyle'] = value[8];
       newsData['health-fitness'] = value[9];
       newsData['books'] = value[10];
-      newsData['its-viral'] = value[11];
-      //developer.log('newsData : $newsData');
+      newsData['its-viral'] = value[11];*/
+      //developer.log('newsData : ${newsData}');
+      //developer.log('newsData : ${value}');
       //developer.log('newsData topnews: ${newsData['world']}');
 
       setState(() {
@@ -253,6 +257,7 @@ class _HomeState extends State<Home> {
       ) : <Widget>[
         HomePage(
           newsData: newsData,
+
         ),
         const Search(),
         Container(

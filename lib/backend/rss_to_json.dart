@@ -6,10 +6,10 @@ import 'package:http/http.dart' as http;
 
 
 
-Future<List> rssToJson(String category, {String baseUrl = 'https://www.hindustantimes.com/feeds/rss/'}) async {
+Future<List> rssToJson(String category, {String baseUrl = 'https://www.lemonde.fr/rss/'}) async {
   var client = http.Client();
   final myTranformer = Xml2Json();
-  var response = await client.get(Uri.parse(baseUrl + category +  '/rssfeed.xml'));
+  var response = await client.get(Uri.parse(baseUrl + category +  '.xml'));
   myTranformer.parse(response.body);
   var json = myTranformer.toGData();
   var result = jsonDecode(json)['rss']['channel']['item'];

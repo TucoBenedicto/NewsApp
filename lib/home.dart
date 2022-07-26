@@ -7,7 +7,7 @@ import 'package:ten_news/screens/search/search.dart';
 import 'dart:developer' as developer;
 
 class Home extends StatefulWidget {
-  const Home({Key key}) : super(key: key);
+  const Home({ Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -16,9 +16,17 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentIndex = 0; //va servire au changement de page pour la bottom menu
 
-  void changePage(int index) {
+  /*
+  If you enable null safety, variables can’t contain null unless you say they can.
+  You can make a variable nullable by putting a question mark (?) at the end of its type.
+  For example, a variable of type int? might be an integer, or it might be null.
+  If you know that an expression never evaluates to null but Dart disagrees,
+  you can add ! to assert that it isn’t null (and to throw an exception if it is). An example: int x = nullableButNotNullInt!
+   */
+  //https://artisandeveloppeur.fr/flutter-quest-ce-que-le-null-safety/
+  void changePage(int? index) {
     setState(() {
-      currentIndex = index;
+      currentIndex = index!;
     });
   }
 
@@ -28,8 +36,8 @@ class _HomeState extends State<Home> {
    Map<String, List> newsData = Map<String, List>(); //mauvaise maniere
    ou var newsData = Map<String, List>(); //bonne maniere
    */
-    Map<String, List> newsData = <String, List>{}; //bonne maniere
-    /*
+  Map<String, List> newsData = <String, List>{}; //bonne maniere
+  /*
     A collection literal is a syntactic expression form that evaluates to an
     aggregate type, such as an array, "List", or "Map". Many languages support
     collection literals. A List literal in Java might look like:
@@ -41,7 +49,7 @@ class _HomeState extends State<Home> {
   getData() async {
     Future.wait([
       rssToJson('figaro_actualites'),
-     rssToJson('figaro_politique'),
+      rssToJson('figaro_politique'),
 /*      rssToJson('world-news'),
       rssToJson('business'),
       rssToJson('sports'),
@@ -56,12 +64,13 @@ class _HomeState extends State<Home> {
       //developer.log('value : ${value}'); //la variable value recupere tout le flux RSS
       //developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
 
-      value[0] = []; //tableau vide
+       value[0] = []; //tableau vide
 
       /*
       on creer une boucle "foreach" dans laquel on recupere toutes les topnews que l'on va ajouter a un tableau avec l'index 0 (topnews)
        */
-      value.forEach((element) { //on peut remplacer par une boucle for
+      value.forEach((element) {
+        //on peut remplacer par une boucle for
         /*
           les varargs (Arguments de longueur variable) "..." permettent de traiter un nombre illimité de paramettre au lieu de tous les taper a chaque fois au lieu de : (para1,para2para3 ...)
           dans notre cas on ajoute tous les arguments element "...element"
@@ -71,13 +80,15 @@ class _HomeState extends State<Home> {
           par consequent si les arguments element sont vide "...element"  (donc null) alors on renvoi un tableau vide "[]"
           en bref on ajoutes tous les arguments elements tans que ce n'est pas null , quand sa le devient on ajoute un tableau vide qui marque la fin des ajouts.
          */
-        value[0].addAll([...element ?? []]);
+         value[0].addAll([... element ?? []]);
         //print('newsData : $newsData');
       });
-      value[0].shuffle(); //shuffle : on melange les info dans newsdata pour donner l'illusion que c'est des nouvelle news a chaque fois
-      newsData['figaro_actualites'] = value[0].sublist(0, 10); //retourne la sous liste comprise entre 0 et 10 -> n'affiche donc que les 10er articles
+      //developer.log('home value: ${value[0]}');
+      //value[0].shuffle(); //shuffle : on melange les info dans newsdata pour donner l'illusion que c'est des nouvelle news a chaque fois
+      //newsData['figaro_actualites'] = value[0].sublist(0, 10); //retourne la sous liste comprise entre 0 et 10 -> n'affiche donc que les 10er articles
+      newsData['figaro_actualites'] = value[0];
       newsData['figaro_politique'] = value[1];
-/*      newsData['world'] = value[2];
+/*    newsData['world'] = value[2];
       newsData['business'] = value[3];
       newsData['sports'] = value[4];
       newsData['cricket'] = value[5];
@@ -92,7 +103,7 @@ class _HomeState extends State<Home> {
 
       setState(() {
         isLoading = false;
-        developer.log('isLoading : $isLoading');
+        //developer.log('isLoading : $isLoading');
       });
     });
   }
@@ -122,7 +133,8 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        backgroundColor: currentIndex == 3 ? const Color(0xffF7F8FA) : Colors.white,
+        backgroundColor:
+            currentIndex == 3 ? const Color(0xffF7F8FA) : Colors.white,
         elevation: 0,
         centerTitle: false,
         titleSpacing: 0,
@@ -132,7 +144,7 @@ class _HomeState extends State<Home> {
         child: Drawer(
           child: Column(
             children: <Widget>[
-               const SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               DrawerHeader(
@@ -142,7 +154,7 @@ class _HomeState extends State<Home> {
                     child: Image.asset(
                       "assets/images/ten_news.png",
                     )),
-                decoration:  const BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
               ),
@@ -225,50 +237,52 @@ class _HomeState extends State<Home> {
               ),
               Expanded(
                   child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 65,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.black,
-                      child: const Center(
-                        child: Text(
-                          'v1.0.1',
-                          style: TextStyle(
-                            fontFamily: 'Avenir',
-                            fontSize: 20,
-                            color: Color(0xffffffff),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 65,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.black,
+                  child: const Center(
+                    child: Text(
+                      'v1.0.1',
+                      style: TextStyle(
+                        fontFamily: 'Avenir',
+                        fontSize: 20,
+                        color: Color(0xffffffff),
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                  ))
+                  ),
+                ),
+              ))
             ],
           ),
         ),
       ),
-      // ? : Ternary operator (condition)
-      body: isLoading ? const Center(
-        child: CircularProgressIndicator(), //Barre de chargement
-      ) : <Widget>[
-        HomePage(
-          newsData: newsData,
-        ),
-        const Search(),
-        Container(
-          color: Colors.yellow,
-        ),
-        Container(
-          color: Colors.green,
-        ),
-      ][currentIndex],
+      //? : Ternary operator (condition)
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(), //Barre de chargement
+            )
+          : <Widget>[
+              HomePage(
+                newsData: newsData,
+              ),
+               Search(),
+              Container(
+                color: Colors.yellow,
+              ),
+              Container(
+                color: Colors.green,
+              ),
+            ][currentIndex],
+
       /*
        currentIndex = 0 affiche que les news
        currentIndex = 1 affiche top categories
         currentIndex = 2 affiche une page toute jaune
         currentIndex = 3 affiche une page toute jaune
        */
-
 
       bottomNavigationBar: BubbleBottomBar(
         opacity: 0,
@@ -338,7 +352,8 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              title: const Text("Profile"), activeIcon: null),
+              title: const Text("Profile"),
+              activeIcon: null),
         ],
       ),
     );

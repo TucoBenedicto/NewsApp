@@ -4,7 +4,7 @@ import 'package:ten_news/model/categories_model.dart';
 import '../../reusable/custom_cards.dart';
 
 class Search extends StatefulWidget {
-  const Search({Key key}) : super(key: key);
+  const Search({Key? key}) : super(key: key);
 
   @override
   State<Search> createState() => _SearchState();
@@ -12,7 +12,9 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   final TextEditingController _searchController = TextEditingController();
-  FocusNode searchNode; //permet d'afficher le clavier virtuelle
+  //permet d'afficher le clavier virtuelle
+  late FocusNode searchNode; //late : keyword to declare variables that will be initialized later. These are called non-nullable variables
+  // ou  FocusNode? searchNode; // ? = nullable type , indique que la variable peut etre "null" donc absence de valeur.
   bool isCategory = false;
   @override
   Widget build(BuildContext context) {
@@ -161,7 +163,7 @@ class _SearchState extends State<Search> {
             ),
             Column(
                 children: List.generate(10, (index) {
-              return const SearchCard();
+              return SearchCard();
             }))
           ] else ...[
             RichText(

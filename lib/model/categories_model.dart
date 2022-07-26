@@ -8,7 +8,7 @@ class CategoryModel{
 List<CategoryModel> categories = [
   //CategoryModel(name: "La une", imageUrl: "assets/images/categories/topnews.jpg"),
   CategoryModel(name: "figaro_actualites", imageUrl: "assets/images/categories/figaro_actualites.jpg"),
-  CategoryModel(name: "Politique", imageUrl: "assets/images/categories/figaro_politique.jpg"),
+  CategoryModel(name: "figaro_politique", imageUrl: "assets/images/categories/figaro_politique.jpg"),
 /*  CategoryModel(name: "World", imageUrl: "assets/images/categories/world.jpg"),
   CategoryModel(name: "Business", imageUrl: "assets/images/categories/business.jpg"),
   CategoryModel(name: "Sports", imageUrl: "assets/images/categories/sports.jpg"),

@@ -1,6 +1,34 @@
+getDayNameFromWeekDay({  int? day}) {
+
+  switch (day){
+
+    case 1: return 'Lundi';
+    break;
+
+    case 2: return 'Mardi';
+    break;
+
+    case 3: return 'Mercredi';
+    break;
+
+    case 4: return 'Jeudi';
+    break;
+
+    case 5: return 'Vendredi';
+    break;
+
+    case 6: return 'Samedi';
+    break;
+
+    case 7: return 'Dimanche';
+    break;
+
+  }
+}
 
 
- getMonthNumberFromName({  String month}) {
+
+ getMonthNumberFromName({String? month}) {
 
   switch (month){
 
@@ -45,45 +73,44 @@
 }
 
 
-getMonthNumberInWords({ int month}) {
+getMonthNumberInWords({ int? month}) {
 
   switch (month) {
-    case 1 : return 'Jan';
+    case 1 : return 'Janvier';
     break;
 
-    case 2 : return 'Feb';
+    case 2 : return 'Fevrier';
     break;
 
-    case 3 : return 'Mar';
+    case 3 : return 'Mars';
     break;
 
-    case 4 : return 'Apr';
+    case 4 : return 'Avril';
     break;
 
-    case 5 : return 'May';
+    case 5 : return 'Mai';
     break;
 
-    case 6 : return 'Jun';
+    case 6 : return 'Juin';
     break;
 
-    case 7 : return 'Jul';
+    case 7 : return 'Juillet';
     break;
 
-    case 8 : return 'Aug';
+    case 8 : return 'Aout';
     break;
 
-    case 9 : return 'Sep';
+    case 9 : return 'Septembre';
     break;
 
-    case 10 : return 'Oct';
+    case 10 : return 'Octobre';
     break;
 
-    case 11 : return 'Nov';
+    case 11 : return 'Novembre';
     break;
 
-    case 12 : return 'Dec';
+    case 12 : return 'Decembre';
     break;
 
   }
-
 }

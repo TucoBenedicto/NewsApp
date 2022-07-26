@@ -1,3 +1,5 @@
+// adb connect localhost:5555
+
 import 'package:flutter/material.dart';
 import 'home.dart';
 

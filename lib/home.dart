@@ -49,17 +49,17 @@ class _HomeState extends State<Home> {
   getData() async {
     Future.wait([
       rssToJson('figaro_actualites'),
+      rssToJson('figaro_actualite-france'),
+      rssToJson('figaro_secteur_high-tech'),
+      rssToJson('figaro_sante'),
       rssToJson('figaro_politique'),
-/*      rssToJson('world-news'),
-      rssToJson('business'),
-      rssToJson('sports'),
-      rssToJson('cricket'),
-      rssToJson('education'),
-      rssToJson('entertainment'),
-      rssToJson('lifestyle'),
-      rssToJson('health'),
-      rssToJson('books'),
-      rssToJson('trending'),*/
+      rssToJson('figaro_sciences'),
+      rssToJson('figaro_sport'),
+      rssToJson('figaro_economie'),
+      rssToJson('figaro_international'),
+      rssToJson('figaro_culture'),
+      //rssToJson('books'),
+      //rssToJson('trending'),
     ]).then((value) {
       //developer.log('value : ${value}'); //la variable value recupere tout le flux RSS
       //developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
@@ -76,30 +76,30 @@ class _HomeState extends State<Home> {
           dans notre cas on ajoute tous les arguments element "...element"
          */
         /*
-          l'operateur "??" envoi ce qui est sa droite si sa valeur de gauche est null.
+          "null safty operatore" l'operateur "??" envoi ce qui est sa droite si sa valeur de gauche est null.
           par consequent si les arguments element sont vide "...element"  (donc null) alors on renvoi un tableau vide "[]"
           en bref on ajoutes tous les arguments elements tans que ce n'est pas null , quand sa le devient on ajoute un tableau vide qui marque la fin des ajouts.
          */
          value[0].addAll([... element ?? []]);
         //print('newsData : $newsData');
       });
-      //developer.log('home value: ${value[0]}');
-      //value[0].shuffle(); //shuffle : on melange les info dans newsdata pour donner l'illusion que c'est des nouvelle news a chaque fois
-      //newsData['figaro_actualites'] = value[0].sublist(0, 10); //retourne la sous liste comprise entre 0 et 10 -> n'affiche donc que les 10er articles
-      newsData['figaro_actualites'] = value[0];
-      newsData['figaro_politique'] = value[1];
-/*    newsData['world'] = value[2];
-      newsData['business'] = value[3];
-      newsData['sports'] = value[4];
-      newsData['cricket'] = value[5];
-      newsData['education'] = value[6];
-      newsData['entertainment'] = value[7];
-      newsData['lifestyle'] = value[8];
-      newsData['health-fitness'] = value[9];
-      newsData['books'] = value[10];
-      newsData['its-viral'] = value[11];*/
+      developer.log('home value: ${value[0]}');
+      value[0].shuffle(); //shuffle : on melange les info dans newsdata pour donner l'illusion que c'est des nouvelle news a chaque fois
+      newsData['figaro_actualites'] = value[0].sublist(0, 10); //retourne la sous liste comprise entre 0 et 10 -> n'affiche donc que les 10er articles
+      //newsData['figaro_actualites'] = value[0];
+      newsData['figaro_actualite-france'] = value[1];
+      newsData['figaro_secteur_high-tech'] = value[2];
+      newsData['figaro_sante'] = value[3];
+      newsData['figaro_politique'] = value[4];
+      newsData['figaro_sciences'] = value[5];
+      newsData['figaro_sport'] = value[6];
+      newsData['figaro_economie'] = value[7];
+      newsData['figaro_international'] = value[8];
+      newsData['figaro_culture'] = value[9];
+      //newsData['books'] = value[10];
+      //newsData['its-viral'] = value[11];
       //developer.log('newsData : $newsData');
-      //developer.log('newsData topnews: ${newsData['world']}');
+      developer.log('newsData topnews: ${newsData['figaro_sport']}');
 
       setState(() {
         isLoading = false;

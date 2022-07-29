@@ -257,8 +257,7 @@ https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20la
                */
               //var key = categories[index].imageUrl.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
               var key = categories[index].imageUrl.toString().split("/")[3].split(".")[0];
-              developer.log(
-                  'homepage key : $key'); //return topnews , india , world  , business , sports , cricket , education , entertainment , lifestyle , ....
+              developer.log('homepage key : $key'); //return topnews , india , world  , business , sports , cricket , education , entertainment , lifestyle , ....
               //developer.log('homepage _newsData : $_newsData');
               return ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -266,77 +265,118 @@ https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20la
                   //Gestion de l'heure des articles.
                   //Tuto parsin time : https://stackoverflow.com/questions/62949069/how-to-parse-date-time-in-flutter
                   //Tuto parsin time : https://www.woolha.com/tutorials/dart-convert-string-to-datetime
-                  String time = _newsData[key]![i]['pubDate']
-                      .toString(); //On recupere l'heure du flux rss
-                  String timeGMT = time.replaceAll("+0200}", "GMT").replaceAll(
-                      r"{$t: ",
-                      ""); //pubDate me renvoi une erreur "+530" on la remplace par "GMT" pour corriger l'erreur
+                  String time = _newsData[key]![i]['pubDate'].toString(); //On recupere l'heure du flux rss
+                  String timeGMT = time.replaceAll("+0200}", "GMT").replaceAll(r"{$t: ", ""); //pubDate me renvoi une erreur "+530" on la remplace par "GMT" pour corriger l'erreur
                   DateTime timeIST = HttpDate.parse(timeGMT);
                   //Sat, 18 Jun 2022 16:30:08 +0530 -> pubdata dans le flux RSS
                   //DateTime timeIST = HttpDate.parse('Sat, 18 Jun 2022 16:30:08 +0530'); -> erreur a cause de "+0530"
                   //String timeGMT = timeIST.replaceAll("+0530", "GMT");
                   //print(HttpDate.parse(timeGMT)); //OK
                   //String value2 = value.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
-                  timeIST = timeIST.add(const Duration(hours: 5)).add(
-                      const Duration(
-                          minutes:
-                              30)); // permet de corriger l'heure, on change le fuseau horaire indien "ist" en fuseau horaire europpen "gmt"
+                  timeIST = timeIST.add(const Duration(hours: 5)).add(const Duration(minutes: 30)); // permet de corriger l'heure, on change le fuseau horaire indien "ist" en fuseau horaire europpen "gmt"
 
                   //developer.log('HomePageCard all : ${_newsData[key]}');
-                  //developer.log('HomePageCard title : ${_newsData[key][i]['title']}');
-                  //developer.log('HomePageCard value : ${_newsData['figaro_actualites'][1]}');
+                  //developer.log('HomePageCard title : ${_newsData[key]![i]['title']}');
+                  //developer.log('HomePageCard value : ${_newsData['figaro_actualites']![0]}');
                   //developer.log('HomePageCard value : ${_newsData['figaro_actualites'][1]}');
                   //developer.log('HomePageCard subtitle : ${_newsData[key][i]['description']}');
                   //developer.log('HomePageCard time : ${timeIST.weekday}');
                  // developer.log('HomePageCard image link : ${_newsData[key][i]['media\$content']['url']}');
                   //https://www.lefigaro.fr/politique/guillaume-tabard-sous-la-polemique-panot-la-methode-des-insoumis-20220718
                   //developer.log('HomePageCard dayli: ${_newsData[key][0]['guid'].toString().split("/")[2].split(".")[1]}');
-                  //developer.log('HomePageCard dayli: ${_newsData[key][0]['guid'].toString().split("/")[2].split(".")}');
+                  //developer.log('HomePageCard dayli: ${_newsData[key]![0]}');
 
                   return HomePageCard(
                     //title: _newsData[key][i]['title']['__cdata'].replaceAll(r"\'",''),
                     //title: '${_newsData['figaro_actualites'][1]['title']}',
+                    //https://mozartsduweb.com/blog/outils/correspondance-encodages-utf8-iso-8859-1/
                     title: _newsData[key]![i]['title']
                         .toString()
                         .replaceAll(r'{$t:', '')
                         .replaceAll(r'}', '')
-                        .replaceAll(r'Â', '')
+                        .replaceAll(r'Â', '') // â
+                        .replaceAll(r'â', '')
                         .replaceAll(r'Ã', 'E')
                         .replaceAll(r'à', 'E')
                         .replaceAll(r'Ã©', 'é')
-                        .replaceAll(r'à©', 'é')
+                        .replaceAll(r'â¦', '...')
                         .replaceAll(r'â', "'")
                         .replaceAll(r'Â«', '"')
                         .replaceAll(r'Â»', '"')
                         .replaceAll(r'Ã', 'à')
                         .replaceAll(r'Ã¨', 'è')
                         .replaceAll(r'à¨', 'è')
+                        .replaceAll(r'Ã', 'Ê')
+                        .replaceAll(r'à', 'Ê')
                         .replaceAll(r'Ãª', 'ê')
                         .replaceAll(r'àª', 'ê')
                         .replaceAll(r'Ã§', 'ç')
                         .replaceAll(r'Ã´', 'ô')
-                        .replaceAll(r'à´', 'ô'),
+                        .replaceAll(r'à´', 'ô')
+                        .replaceAll(r'Ã§', 'ç')
+                        .replaceAll(r'à§', 'ç')
+                        .replaceAll(r'Ã¯', 'ï')
+                        .replaceAll(r'à¯', 'ï')
+                        .replaceAll(r'Ã®', 'î')
+                        .replaceAll(r'à®', 'î')
+                        .replaceAll(r'Ã¹ ', 'ù')
+                        .replaceAll(r'Ã¦ ', 'æ')
+                        .replaceAll(r'Å', 'œ')
+                        .replaceAll(r'Å', 'œ')
+                        .replaceAll(r'Ã«', 'ë')
+                        .replaceAll(r'Ã¼', 'ü')
+                        .replaceAll(r'Ã¢', 'â')
+                        .replaceAll(r'à¢', 'â')
+                        .replaceAll(r'â¬', '€')
+                        .replaceAll(r'Â©', '©')
+                        .replaceAll(r'Â¤', '¤')
+                        .replaceAll(r'Ã', 'À')
+                        .replaceAll(r'à', 'À')
+                    ,
 
                     subtitle: _newsData[key]![i]['description']
                         .toString()
                         .replaceAll(r'{$t:', '')
                         .replaceAll(r'}', '')
-                        .replaceAll(r'Â', '')
+                        .replaceAll(r'Â', '') // â
+                        .replaceAll(r'â', '')
                         .replaceAll(r'Ã', 'E')
                         .replaceAll(r'à', 'E')
                         .replaceAll(r'Ã©', 'é')
-                        .replaceAll(r'à©', 'é')
+                        .replaceAll(r'â¦', '...')
                         .replaceAll(r'â', "'")
                         .replaceAll(r'Â«', '"')
                         .replaceAll(r'Â»', '"')
                         .replaceAll(r'Ã', 'à')
                         .replaceAll(r'Ã¨', 'è')
                         .replaceAll(r'à¨', 'è')
+                        .replaceAll(r'Ã', 'Ê')
+                        .replaceAll(r'à', 'Ê')
                         .replaceAll(r'Ãª', 'ê')
                         .replaceAll(r'àª', 'ê')
                         .replaceAll(r'Ã§', 'ç')
                         .replaceAll(r'Ã´', 'ô')
-                        .replaceAll(r'à´', 'ô'),
+                        .replaceAll(r'à´', 'ô')
+                        .replaceAll(r'Ã§', 'ç')
+                        .replaceAll(r'à§', 'ç')
+                        .replaceAll(r'Ã¯', 'ï')
+                        .replaceAll(r'à¯', 'ï')
+                        .replaceAll(r'Ã®', 'î')
+                        .replaceAll(r'à®', 'î')
+                        .replaceAll(r'Ã¹ ', 'ù')
+                        .replaceAll(r'Ã¦ ', 'æ')
+                        .replaceAll(r'Å', 'œ')
+                        .replaceAll(r'Å', 'œ')
+                        .replaceAll(r'Ã«', 'ë')
+                        .replaceAll(r'Ã¼', 'ü')
+                        .replaceAll(r'Ã¢', 'â')
+                        .replaceAll(r'à¢', 'â')
+                        .replaceAll(r'â¬', '€')
+                        .replaceAll(r'Â©', '©')
+                        .replaceAll(r'Â¤', '¤')
+                        .replaceAll(r'Ã', 'À')
+                        .replaceAll(r'à', 'À')
+                    ,
 
                     //time: timeIST.day.toString() + " " + getMonthNumberInWords(month: timeIST.month) + " " + timeIST.toString().split(" ")[1].substring(0, 5),
                     time: getDayNameFromWeekDay(day: timeIST.weekday) +
@@ -349,13 +389,13 @@ https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20la
                         ":" +
                         timeIST.minute.toString(),
 
-                    imageUrl: _newsData[key]![i]['media\$content']?['url'] ?? 'https://i.f1g.fr/media/eidos/630x354_crop/2022/07/22/XVM75778610-09bb-11ed-8d4a-4a02bb9cc8b8.jpg' ,
-
+                    imageUrl: _newsData[key]![i]['media\$content']?['url'] ?? 'https://www.oxygene.be/images/blog/no_photo1.jpg' ,
                    // imageUrl: _newsData[key][i]['media\$content']['url'],
 
                     //imageUrl: _newsData[key][i]['media:content']['url'],
                     //var key = categories[index].imageUrl.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
-                    //daily : _newsData[key][0]['guid'].toString().split("/")[2].split(".")[1],
+                    daily : _newsData[key]![0]['guid'].toString().split("/")[2].split(".")[1],
+
                   );
                 },
                 itemCount: _newsData[key]?.length ?? 0, // "?." : Called also null-aware access(method invocation) / "??" : Called also null operator.

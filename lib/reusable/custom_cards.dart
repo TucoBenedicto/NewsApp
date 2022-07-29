@@ -211,7 +211,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePageCard extends StatelessWidget {
-  final title, imageUrl, subtitle, time;
+  final title, imageUrl, subtitle, time,daily;
 
   const HomePageCard(
       {Key? key,
@@ -219,9 +219,9 @@ class HomePageCard extends StatelessWidget {
         //this.imageUrl,
         this.title,
         this.time = "07 May 07:19",
-        this.subtitle =
-        "Microsoft showcased 13 games, with their gameplay trailers, that will come to Xbox Series X with optimisations"})
-      : super(key: key);
+        this.subtitle = "Microsoft showcased 13 games, with their gameplay trailers, that will come to Xbox Series X with optimisations",
+        this.daily
+      }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +234,6 @@ class HomePageCard extends StatelessWidget {
           Container(
             height: 203,
             width: MediaQuery.of(context).size.width,
-
 
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -284,8 +283,8 @@ class HomePageCard extends StatelessWidget {
                     fontFamily: "Times",
                     fontSize: 13,
                     color: Color(0xff8a8989))),
-            const Text("fefefefefefef",
-                style: TextStyle(
+            Text(daily,
+                style: const TextStyle(
                     fontFamily: "Times",
                     fontSize: 13,
                     color: Color(0xff8a8989))),

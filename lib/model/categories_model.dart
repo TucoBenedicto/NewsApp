@@ -7,16 +7,14 @@ class CategoryModel{
 
 List<CategoryModel> categories = [
   //CategoryModel(name: "La une", imageUrl: "assets/images/categories/topnews.jpg"),
-  CategoryModel(name: "figaro_actualites", imageUrl: "assets/images/categories/figaro_actualites.jpg"),
-  CategoryModel(name: "figaro_politique", imageUrl: "assets/images/categories/figaro_politique.jpg"),
-/*  CategoryModel(name: "World", imageUrl: "assets/images/categories/world.jpg"),
-  CategoryModel(name: "Business", imageUrl: "assets/images/categories/business.jpg"),
-  CategoryModel(name: "Sports", imageUrl: "assets/images/categories/sports.jpg"),
-  CategoryModel(name: "Cricket", imageUrl: "assets/images/categories/cricket.jpg"),
-  CategoryModel(name: "Education", imageUrl: "assets/images/categories/education.jpg"),
-  CategoryModel(name: "Entertainment", imageUrl: "assets/images/categories/entertainment.jpg"),
-  CategoryModel(name: "Lifestyle", imageUrl: "assets/images/categories/lifestyle.jpg"),
-  CategoryModel(name: "Health and Fitness", imageUrl: "assets/images/categories/health_fitness.jpg"),
-  CategoryModel(name: "Books", imageUrl: "assets/images/categories/books.jpg"),
-  CategoryModel(name: "Its Viral", imageUrl: "assets/images/categories/its_viral.jpg"),*/
+  CategoryModel(name: "La une", imageUrl: "assets/images/categories/figaro_actualites.jpg"),
+  CategoryModel(name: "Société", imageUrl: "assets/images/categories/figaro_actualite-france.jpg"),
+  CategoryModel(name: "High-Tech", imageUrl: "assets/images/categories/figaro_secteur_high-tech.jpg"),
+  CategoryModel(name: "Santé", imageUrl: "assets/images/categories/figaro_sante.jpg"),
+  CategoryModel(name: "Politique ", imageUrl: "assets/images/categories/figaro_politique.jpg"),
+  CategoryModel(name: "Science", imageUrl: "assets/images/categories/figaro_sciences.jpg"),
+  CategoryModel(name: "Sport", imageUrl: "assets/images/categories/figaro_sport.jpg"),
+  CategoryModel(name: "Economie", imageUrl: "assets/images/categories/figaro_economie.jpg"),
+  CategoryModel(name: "International", imageUrl: "assets/images/categories/figaro_international.jpg"),
+  CategoryModel(name: "Culture ", imageUrl: "assets/images/categories/figaro_culture.jpg"),
 ];

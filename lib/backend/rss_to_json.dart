@@ -1,8 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:xml2json/xml2json.dart';
 import 'package:http/http.dart' as http;
+import 'dart:developer' as developer;
+
 /*
 Future<List> rssToJson(String category, {String baseUrl = 'https://www.hindustantimes.com/feeds/rss/'}) async {
   var client = http.Client();
@@ -45,6 +46,7 @@ Future<List> rssToJson(String category, {String baseUrl = 'https://www.lefigaro.
   if (result is! List<dynamic>) {
     return [result]; //return array (list)
   }
+  //developer.log('rss_to_json result : ${result}'); //la variable value recupere tout le flux RSS
   return result;
 }
 

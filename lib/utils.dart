@@ -1,6 +1,6 @@
 
 
- getMonthNumberFromName({  String month}) {
+ getMonthNumberFromName({  String? month}) {
 
   switch (month){
 
@@ -45,7 +45,7 @@
 }
 
 
-getMonthNumberInWords({ int month}) {
+getMonthNumberInWords({ int? month}) {
 
   switch (month) {
     case 1 : return 'Jan';

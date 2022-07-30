@@ -136,15 +136,17 @@ class _HomePageState extends State<HomePage>
 class HomePage extends StatefulWidget {
   final Map<String, List> newsData;
 
-  const HomePage({ Key key,  this.newsData}) : super(key: key);
+  const HomePage({ Key? key,  required this.newsData}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  ScrollController _scrollController;
-  TabController _tabController;
+   late ScrollController _scrollController;
+  // ScrollController? _scrollController;
+  late TabController _tabController;
+  //TabController? _tabController;
   int currentIndex = 0;
 
   /* Collection literal
@@ -198,10 +200,17 @@ https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20la
 
   @override
   Widget build(BuildContext context) {
+    /*
+    As the name suggests the NestedScrollView in flutter is nothing but a scrolling view at first sight.
+    However, it has many advantages. And the main advantage is we can nest other scrolling views inside it.
+     */
     return NestedScrollView(
       controller: _scrollController,
       headerSliverBuilder: (context, value) {
         return [
+          /*
+          SliverToBoxAdapter is a sliver that contains a single box widget. It’s quite handy when you want to show only a single child in the CustomScrollView.
+           */
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(25, 10, 25, 25),
@@ -245,6 +254,9 @@ https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20la
           ),
         ];
       },
+
+
+      // LISTVIEW ////////////////////////
       body: TabBarView(
           controller: _tabController,
           children: List.generate(
@@ -256,7 +268,8 @@ https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20la
               "split(".")" a partir de l'index 3 on separe la valeur là ou il y a des point et recuper le key à l'index 0 "[0]".
               "replaceAll("_", "-")" permet de remplacer tous les underScores par des tirets.
                */
-              var key = categories[index].imageUrl.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
+              //var key = categories[index].imageUrl.toString().split("/")[3].split(".")[0].replaceAll("_", "-");
+              var key = categories[index].rssCategory.toString();
               developer.log('key : $key'); //return topnews , india , world  , business , sports , cricket , education , entertainment , lifestyle , ....
               //developer.log('newsdat : ${_newsData[key]}');
 
@@ -281,10 +294,10 @@ https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20la
                   //timeIST = timeIST.add(const Duration(hours: 5)).add(const Duration(minutes: 30)); // permet de corriger l'heure, on change le fuseau horaire indien "ist" en fuseau horaire europpen "gmt"
 
                   return HomePageCard(
-                    title: _newsData[key][i]['title']['__cdata'],
-                    //subtitle: _newsData[key][i]['description']['__cdata'],
+                    title: _newsData[key]![i]['title']['__cdata'],
+                    subtitle: _newsData[key]![i]['description']['__cdata'],
                     //time: timeIST.day.toString() + " " + getMonthNumberInWords(month: timeIST.month) + " " + timeIST.toString().split(" ")[1].substring(0, 5),
-                    imageUrl: _newsData[key][i]['media\$content']['url'] ,
+                    imageUrl: _newsData[key]![i]['media\$content']['url'] ,
                   );
                 },
                 itemCount: _newsData[key]?.length ?? 0, // "?." : Called also null-aware access(method invocation) / "??" : Called also null operator.

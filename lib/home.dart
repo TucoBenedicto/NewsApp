@@ -4,10 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ten_news/backend/rss_to_json.dart';
 import 'package:ten_news/screens/home/homepage.dart';
 import 'package:ten_news/screens/search/search.dart';
+import 'package:ten_news/model/categories_model.dart';
 import 'dart:developer' as developer;
 
 class Home extends StatefulWidget {
-  const Home({Key key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -16,9 +17,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentIndex = 0; //va servire au changement de page pour la bottom menu
 
-  void changePage(int index) {
+  void changePage(int? index) {
     setState(() {
-      currentIndex = index;
+      currentIndex = index!;
     });
   }
 
@@ -37,23 +38,25 @@ class _HomeState extends State<Home> {
     https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20languages%20support%20collection%20literals.
      */
 
+  //var key = categories[index].rssCategory.toString();
+
   bool isLoading = true; //CEtte variable va nous permettre de gerer la barre de chargement plus bas.
   getData() async {
     Future.wait([
-      rssToJson('une'),
-/*      rssToJson('india'),
-      rssToJson('world-news'),
-      rssToJson('business'),
-      rssToJson('sports'),
-      rssToJson('cricket'),
-      rssToJson('education'),
-      rssToJson('entertainment'),
-      rssToJson('lifestyle'),
-      rssToJson('health'),
-      rssToJson('books'),
-      rssToJson('trending'),*/
+      rssToJson('rss/une'),
+      rssToJson('societe/rss_full'),
+      rssToJson('pixels/rss_full'),
+      rssToJson('sante/rss_full'),
+      rssToJson('politique/rss_full'),
+      rssToJson('sciences/rss_full'),
+      rssToJson('sport/rss_full'),
+      rssToJson('economie/rss_full'),
+      rssToJson('international/rss_full'),
+      rssToJson('culture/rss_full'),
+      //rssToJson('books'),
+      //rssToJson('trending'),
     ]).then((value) {
-      developer.log('value : ${value}'); //la variable value recupere tout le flux RSS
+      //developer.log('value : ${value}'); //la variable value recupere tout le flux RSS
       //developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
 
       //value[0] = []; //tableau vide
@@ -78,18 +81,18 @@ class _HomeState extends State<Home> {
       });
       //value[0].shuffle(); //shuffle : on melange les info dans newsdata pour donner l'illusion que c'est des nouvelle news a chaque fois
       //newsData['une'] = value[0].sublist(0, 10); //retourne la sous liste comprise entre 0 et 10 -> n'affiche donc que les 10er articles
-      newsData['une'] = value[0];
-     /* newsData['india'] = value[1];
-      newsData['world'] = value[2];
-      newsData['business'] = value[3];
-      newsData['sports'] = value[4];
-      newsData['cricket'] = value[5];
-      newsData['education'] = value[6];
-      newsData['entertainment'] = value[7];
-      newsData['lifestyle'] = value[8];
-      newsData['health-fitness'] = value[9];
-      newsData['books'] = value[10];
-      newsData['its-viral'] = value[11];*/
+      newsData['rss/une'] = value[0];
+      newsData['societe/rss_full'] = value[1];
+      newsData['pixels/rss_full'] = value[2];
+      newsData['sante/rss_full'] = value[3];
+      newsData['politique/rss_full'] = value[4];
+      newsData['sciences/rss_full'] = value[5];
+      newsData['sport/rss_full'] = value[6];
+      newsData['economie/rss_full'] = value[7];
+      newsData['international/rss_full'] = value[8];
+      newsData['culture/rss_full'] = value[9];
+      //newsData['books'] = value[10];
+      //newsData['its-viral'] = value[11];
       //developer.log('newsData : ${newsData}');
       //developer.log('newsData : ${value}');
       //developer.log('newsData topnews: ${newsData['world']}');

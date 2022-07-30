@@ -7,7 +7,7 @@ class HomePageCard extends StatelessWidget {
   final imageUrl, title, subtitle, time;
 
   const HomePageCard(
-      {Key key,
+      {Key? key,
       this.imageUrl = "assets/images/cardimage.jpg",
       this.title = "Watch : Gameplay for the first 13 games optimised for Xbox Series X",
       this.time = "07 May 07:19",
@@ -48,7 +48,7 @@ class HomePageCard extends StatelessWidget {
                           horizontal: 10, vertical: 10),
                       child: Center(
                         child: Text(
-                          title,
+                          subtitle,
                           style: const TextStyle(
                               fontFamily: "Avenger",
                               fontSize: 16,
@@ -86,7 +86,7 @@ class HomePageCard extends StatelessWidget {
 class CategoriesCard extends StatelessWidget {
   final imageUrl, category;
 
-  const CategoriesCard({Key key, this.imageUrl, this.category})
+  const CategoriesCard({Key? key, this.imageUrl, this.category})
       : super(key: key);
 
   @override
@@ -133,7 +133,7 @@ class SearchCard extends StatelessWidget {
   final imageUrl, title, date;
 
   const SearchCard(
-      {Key key,
+      {Key? key,
       this.imageUrl = "assets/cardimage.jpg",
       this.title = "Watch: Gameplay for the first 13 games optimised for Xbox series X",
       this.date = "07 May 07:19"})

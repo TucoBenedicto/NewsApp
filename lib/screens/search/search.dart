@@ -4,7 +4,7 @@ import 'package:ten_news/model/categories_model.dart';
 import '../../reusable/custom_cards.dart';
 
 class Search extends StatefulWidget {
-  const Search({Key key}) : super(key: key);
+  const Search({Key? key}) : super(key: key);
 
   @override
   State<Search> createState() => _SearchState();
@@ -12,7 +12,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   final TextEditingController _searchController = TextEditingController();
-  FocusNode searchNode; //permet d'afficher le clavier virtuelle
+  late FocusNode searchNode; //permet d'afficher le clavier virtuelle
   bool isCategory = false;
   @override
   Widget build(BuildContext context) {

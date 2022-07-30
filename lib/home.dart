@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
       rssToJson('trending'),
     ]).then((value) {
       developer.log('value : ${value}'); //la variable value recupere tout le flux RSS
-      developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
+     // developer.log('value : ${value[1]}'); //la variable value[1] recupere la partie "indian" du flux RSS
 
       value[0] = []; //tableau vide
 

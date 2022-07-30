@@ -262,7 +262,7 @@ https://openjdk.org/jeps/186#:~:text=A%20collection%20literal%20is%20a,Many%20la
               return ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 itemBuilder: (context, i) {
-
+                  developer.log('${_newsData[key][i]['media\$content']['url']}');
                   //Gestion de l'heure des articles.
                   //Tuto parsin time : https://stackoverflow.com/questions/62949069/how-to-parse-date-time-in-flutter
                   //Tuto parsin time : https://www.woolha.com/tutorials/dart-convert-string-to-datetime
